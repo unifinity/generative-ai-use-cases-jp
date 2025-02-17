@@ -128,7 +128,10 @@ export class GenerativeAiUseCasesStack extends Stack {
       imageGenerationModelIds: api.imageGenerationModelIds,
       endpointNames: api.endpointNames,
       agentNames: api.agentNames,
+      inlineAgents: params.inlineAgents,
       useCaseBuilderEnabled: params.useCaseBuilderEnabled,
+      // Frontend
+      hiddenUseCases: params.hiddenUseCases,
       // Custom Domain
       cert: props.cert,
       hostName: params.hostName,
@@ -274,11 +277,19 @@ export class GenerativeAiUseCasesStack extends Stack {
     });
 
     new CfnOutput(this, 'AgentNames', {
-      value: JSON.stringify(api.agentNames),
+      value: Buffer.from(JSON.stringify(api.agentNames)).toString('base64'),
+    });
+
+    new CfnOutput(this, 'InlineAgents', {
+      value: params.inlineAgents.toString(),
     });
 
     new CfnOutput(this, 'UseCaseBuilderEnabled', {
       value: params.useCaseBuilderEnabled.toString(),
+    });
+
+    new CfnOutput(this, 'HiddenUseCases', {
+      value: JSON.stringify(params.hiddenUseCases),
     });
 
     this.userPool = auth.userPool;

@@ -36,6 +36,7 @@ import UseCaseBuilderSamplesPage from './pages/useCaseBuilder/UseCaseBuilderSamp
 import UseCaseBuilderMyUseCasePage from './pages/useCaseBuilder/UseCaseBuilderMyUseCasePage.tsx';
 import { optimizePromptEnabled } from './hooks/useOptimizePrompt';
 import GenerateDiagramPage from './pages/GenerateDiagramPage.tsx';
+import useUseCases from './hooks/useUseCases';
 
 const ragEnabled: boolean = import.meta.env.VITE_APP_RAG_ENABLED === 'true';
 const ragKnowledgeBaseEnabled: boolean =
@@ -43,9 +44,12 @@ const ragKnowledgeBaseEnabled: boolean =
 const samlAuthEnabled: boolean =
   import.meta.env.VITE_APP_SAMLAUTH_ENABLED === 'true';
 const agentEnabled: boolean = import.meta.env.VITE_APP_AGENT_ENABLED === 'true';
+const inlineAgents: boolean = import.meta.env.VITE_APP_INLINE_AGENTS === 'true';
 const { visionEnabled } = MODELS;
 const useCaseBuilderEnabled: boolean =
   import.meta.env.VITE_APP_USE_CASE_BUILDER_ENABLED === 'true';
+// eslint-disable-next-line  react-hooks/rules-of-hooks
+const { enabled } = useUseCases();
 
 const routes: RouteObject[] = [
   {
@@ -68,34 +72,48 @@ const routes: RouteObject[] = [
     path: '/share/:shareId',
     element: <SharedChatPage />,
   },
-  {
-    path: '/generate',
-    element: <GenerateTextPage />,
-  },
-  {
-    path: '/summarize',
-    element: <SummarizePage />,
-  },
-  {
-    path: '/editorial',
-    element: <EditorialPage />,
-  },
-  {
-    path: '/translate',
-    element: <TranslatePage />,
-  },
-  {
-    path: '/web-content',
-    element: <WebContent />,
-  },
-  {
-    path: '/image',
-    element: <GenerateImagePage />,
-  },
-  {
-    path: '/diagram',
-    element: <GenerateDiagramPage />,
-  },
+  enabled('generate')
+    ? {
+        path: '/generate',
+        element: <GenerateTextPage />,
+      }
+    : null,
+  enabled('summarize')
+    ? {
+        path: '/summarize',
+        element: <SummarizePage />,
+      }
+    : null,
+  enabled('editorial')
+    ? {
+        path: '/editorial',
+        element: <EditorialPage />,
+      }
+    : null,
+  enabled('translate')
+    ? {
+        path: '/translate',
+        element: <TranslatePage />,
+      }
+    : null,
+  enabled('webContent')
+    ? {
+        path: '/web-content',
+        element: <WebContent />,
+      }
+    : null,
+  enabled('image')
+    ? {
+        path: '/image',
+        element: <GenerateImagePage />,
+      }
+    : null,
+  enabled('diagram')
+    ? {
+        path: '/diagram',
+        element: <GenerateDiagramPage />,
+      }
+    : null,
   optimizePromptEnabled
     ? {
         path: '/optimize',
@@ -110,7 +128,7 @@ const routes: RouteObject[] = [
     path: '/flow-chat',
     element: <FlowChatPage />,
   },
-  visionEnabled
+  visionEnabled && enabled('video')
     ? {
         path: '/video',
         element: <VideoAnalyzerPage />,
@@ -128,9 +146,15 @@ const routes: RouteObject[] = [
         element: <RagKnowledgeBasePage />,
       }
     : null,
-  agentEnabled
+  agentEnabled && !inlineAgents
     ? {
         path: '/agent',
+        element: <AgentChatPage />,
+      }
+    : null,
+  agentEnabled && inlineAgents
+    ? {
+        path: '/agent/:agentName',
         element: <AgentChatPage />,
       }
     : null,
@@ -140,30 +164,29 @@ const routes: RouteObject[] = [
   },
 ].flatMap((r) => (r !== null ? [r] : []));
 
-export const ROUTE_INDEX_USE_CASE_BUILDER = '/use-case-builder';
 const useCaseBuilderRoutes: RouteObject[] = [
   {
-    path: ROUTE_INDEX_USE_CASE_BUILDER,
+    path: '/use-case-builder',
     element: <UseCaseBuilderSamplesPage />,
   },
   {
-    path: `${ROUTE_INDEX_USE_CASE_BUILDER}/my-use-case`,
+    path: `/use-case-builder/my-use-case`,
     element: <UseCaseBuilderMyUseCasePage />,
   },
   {
-    path: `${ROUTE_INDEX_USE_CASE_BUILDER}/new`,
+    path: `/use-case-builder/new`,
     element: <UseCaseBuilderEditPage />,
   },
   {
-    path: `${ROUTE_INDEX_USE_CASE_BUILDER}/edit/:useCaseId`,
+    path: `/use-case-builder/edit/:useCaseId`,
     element: <UseCaseBuilderEditPage />,
   },
   {
-    path: `${ROUTE_INDEX_USE_CASE_BUILDER}/execute/:useCaseId`,
+    path: `/use-case-builder/execute/:useCaseId`,
     element: <UseCaseBuilderExecutePage />,
   },
   {
-    path: `${ROUTE_INDEX_USE_CASE_BUILDER}/setting`,
+    path: `/use-case-builder/setting`,
     element: <Setting />,
   },
   {
@@ -189,7 +212,7 @@ const router = createBrowserRouter([
   ...(useCaseBuilderEnabled
     ? [
         {
-          path: ROUTE_INDEX_USE_CASE_BUILDER,
+          path: '/use-case-builder',
           element: samlAuthEnabled ? (
             <AuthWithSAML>
               <UseCaseBuilderRoot />
