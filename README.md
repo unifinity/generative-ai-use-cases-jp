@@ -46,7 +46,7 @@ GenU の機能やオプションを活用パターンごとに紹介いたしま
         <td>LLM は、大量の文章を要約するタスクを得意としています。ただ要約するだけでなく、文章をコンテキストとして与えた上で、必要な情報を対話形式で引き出すこともできます。例えば、契約書を読み込ませて「XXX の条件は？」「YYY の金額は？」といった情報を取得することが可能です。</td>
       </tr>
       <tr>
-        <td>校正</td>
+        <td>執筆</td>
         <td>LLM は、誤字脱字のチェックだけでなく、文章の流れや内容を考慮したより客観的な視点から改善点を提案できます。人に見せる前に LLM に自分では気づかなかった点を客観的にチェックしてもらいクオリティを上げる効果が期待できます。</td>
       </tr>
       <tr>
@@ -182,6 +182,7 @@ GenU をご利用いただく際の、構成と料金試算例を公開してお
 | Customer | Quote |
 |:--------|:---------|
 | <a href="https://www.yasashiite.com/" target="_blank"><img src="./docs/assets/images/cases/yasashiite_logo.png"></a> | **株式会社やさしい手** <br/> *GenU のおかげで、利用者への付加価値提供と従業員の業務効率向上が実現できました。従業員にとって「いままでの仕事」が楽しい仕事に変化していく「サクサクからワクワクへ」更に進化を続けます！* <br/> ・[事例の詳細を見る](./docs/assets/images/cases/yasashiite_case.png) <br/> ・[事例のページを見る](https://aws.amazon.com/jp/solutions/case-studies/yasashii-te/)|
+| <a href="https://www.takihyo.co.jp/" target="_blank"><img src="./docs/assets/images/cases/TAKIHYO_logo.png"></a> | **タキヒヨー株式会社** <br/> *生成 AI を活用し社内業務効率化と 450 時間超の工数削減を実現。Amazon Bedrock を衣服デザイン等に適用、デジタル人材育成を推進。* <br/> ・[事例のページを見る](https://aws.amazon.com/jp/solutions/case-studies/takihyo/)|
 | <a href="https://salsonido.com/" target="_blank"><img src="./docs/assets/images/cases/salsonido_logo.png"></a>| **株式会社サルソニード** <br/> *ソリューションとして用意されている GenU を活用することで、生成 AI による業務プロセスの改善に素早く取り掛かることができました。* <br/> ・[事例の詳細を見る](./docs/assets/images/cases/salsonido_case.png) <br/> ・[適用サービス](https://kirei.ai/)|
 | <a href="https://www.tamura-ss.co.jp/jp/index.html" target="_blank"><img src="./docs/assets/images/cases/tamura-ss_logo.png"></a> | **株式会社タムラ製作所** <br/> *AWS が Github に公開しているアプリケーションサンプルは即テスト可能な機能が豊富で、そのまま利用することで自分たちにあった機能の選定が難なくでき、最終システムの開発時間を短縮することができました。*<br/> ・[事例の詳細を見る](./docs/assets/images/cases/tamura-ss_case.png)<br/> |
 | <a href="https://jdsc.ai/" target="_blank"><img src="./docs/assets/images/cases/jdsc_logo.png"></a> | **株式会社JDSC** <br/> *Amazon Bedrock ではセキュアにデータを用い LLM が活用できます。また、用途により最適なモデルを切り替えて利用できるので、コストを抑えながら速度・精度を高めることができました。* <br/> ・[事例の詳細を見る](./docs/assets/images/cases/jdsc_case.png) |

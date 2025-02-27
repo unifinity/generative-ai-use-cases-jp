@@ -4,9 +4,23 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { VitePWA } from 'vite-plugin-pwa';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  build: {
+    rollupOptions: {
+      plugins: [
+        mode === 'analyze' &&
+          visualizer({
+            open: true,
+            filename: 'dist/stats.html',
+            gzipSize: true,
+            brotliSize: true,
+          }),
+      ],
+    },
+  },
   resolve: { alias: { './runtimeConfig': './runtimeConfig.browser' } },
   plugins: [
     react(),
@@ -18,11 +32,18 @@ export default defineConfig({
       },
     }),
     VitePWA({
+      strategies: 'generateSW',
       registerType: 'autoUpdate',
       devOptions: {
         enabled: true,
       },
       injectRegister: 'auto',
+      workbox: {
+        globDirectory: 'dist',
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        swDest: 'dist/sw.js',
+        maximumFileSizeToCacheInBytes: 5000000,
+      },
       manifest: {
         name: 'Generative AI Use Cases JP',
         short_name: 'GenU',
@@ -65,4 +86,4 @@ export default defineConfig({
     environment: 'node',
     setupFiles: [],
   },
-});
+}));

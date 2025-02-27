@@ -18,7 +18,7 @@ export const stackInputSchema = z.object({
     .object({
       generate: z.boolean().optional(),
       summarize: z.boolean().optional(),
-      editorial: z.boolean().optional(),
+      writer: z.boolean().optional(),
       translate: z.boolean().optional(),
       webContent: z.boolean().optional(),
       image: z.boolean().optional(),
@@ -65,6 +65,7 @@ export const stackInputSchema = z.object({
     .nullish(),
   // RAG KB
   ragKnowledgeBaseEnabled: z.boolean().default(false),
+  ragKnowledgeBaseId: z.string().nullish(),
   embeddingModelId: z.string().default('amazon.titan-embed-text-v2:0'),
   ragKnowledgeBaseStandbyReplicas: z.boolean().default(false),
   ragKnowledgeBaseAdvancedParsing: z.boolean().default(false),
